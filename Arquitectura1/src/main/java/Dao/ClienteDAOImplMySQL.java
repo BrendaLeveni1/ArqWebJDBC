@@ -42,10 +42,24 @@ public class ClienteDAOImplMySQL implements ClienteDao {
 		}
 	}
 
+	//lista de clientes, ordenada por a cuál se le facturó más.
 	@Override
 	public List<Cliente> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// this.connection.getInstance().
+			Statement stmt = this.connection.createStatement();
+			String sql = "SELECT c.nombre AS nombre_cliente, SUM(f.total) AS total_facturado " +
+	                "FROM clientes c " +
+	                "LEFT JOIN facturas f ON c.id = f.cliente_id " +
+	                "GROUP BY c.id, c.nombre " +
+	                "ORDER BY total_facturado DESC"
+			stmt.executeUpdate(sql);
+			ConnectionFactory.getInstance().disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

@@ -44,10 +44,20 @@ public class Factura_productoDAOImplMySQL implements Factura_productoDao {
 		}
 	}
 
+	//Retorne el producto que más recaudó
+	//cantidad de productos vendidos multiplicado por su valor
 	@Override
 	public List<Factura_producto> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// this.connection.getInstance().
+			Statement stmt = this.connection.createStatement();
+			String sql = "INSERT INTO Factura_producto (idFactura, idProducto, cantidad) VALUES (" + idFactura + ","
+					+ idProducto + "," + cantidad + ");";
+			stmt.executeUpdate(sql);
+			ConnectionFactory.getInstance().disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
