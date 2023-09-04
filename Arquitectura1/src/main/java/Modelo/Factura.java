@@ -2,27 +2,27 @@ package Modelo;
 
 public class Factura {
 
-	private Factura idFactura;
-	private Cliente idCliente;
+	private int idFactura;
+	private int idCliente;
 
-	public Factura(Factura idFactura, Cliente idCliente) {
+	public Factura(int idFactura, int idCliente) {
 		this.idFactura = idFactura;
 		this.idCliente = idCliente;
 	}
 
-	public Factura getIdFactura() {
+	public int getIdFactura() {
 		return idFactura;
 	}
 
-	public void setIdFactura(Factura idFactura) {
+	public void setIdFactura(int idFactura) {
 		this.idFactura = idFactura;
 	}
 
-	public Cliente getIdCliente() {
+	public int getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(Cliente idCliente) {
+	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
 

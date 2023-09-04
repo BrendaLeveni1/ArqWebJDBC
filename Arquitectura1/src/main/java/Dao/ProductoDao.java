@@ -8,5 +8,4 @@ public interface ProductoDao {
 
 	public void insertar(int idProducto, double valor, String nombre);
 
-	public List<Producto> listar();
 }

@@ -1,11 +1,11 @@
 package Dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
-import Modelo.Cliente;
 import util.ConnectionFactory;
 
 public class ClienteDAOImplMySQL implements ClienteDao {
@@ -44,17 +44,22 @@ public class ClienteDAOImplMySQL implements ClienteDao {
 
 	//lista de clientes, ordenada por a cuál se le facturó más.
 	@Override
-	public List<Cliente> listar() {
-		try {
-			// this.connection.getInstance().
-			Statement stmt = this.connection.createStatement();
-			String sql = "SELECT c.nombre AS nombre_cliente, SUM(f.total) AS total_facturado " +
-	                "FROM clientes c " +
-	                "LEFT JOIN facturas f ON c.id = f.cliente_id " +
-	                "GROUP BY c.id, c.nombre " +
-	                "ORDER BY total_facturado DESC"
-			stmt.executeUpdate(sql);
-			ConnectionFactory.getInstance().disconnect();
+	public void listar() {
+		try {			
+			String sql = "SELECT c.nombre AS nombre_cliente, SUM(f.total) AS total_facturado FROM clientes c LEFT JOIN facturas f ON c.id = f.cliente_id GROUP BY c.id, c.nombre ORDER BY total_facturado DESC";
+			PreparedStatement stm = connection.prepareStatement(sql);
+			ResultSet resultado = stm.executeQuery();
+
+			while (resultado.next()) {
+				int idCliente = resultado.getInt("idCliente");
+				String nombreCliente = resultado.getString("nombre");
+				float totalFacturado = resultado.getFloat("total_facturado");
+				
+				System.out.println("Cliente [idCliente=" + idCliente + ", nombre=" + nombreCliente + ", total facturado=$" + totalFacturado + "]");
+			
+			
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

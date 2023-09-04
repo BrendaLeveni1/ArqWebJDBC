@@ -8,7 +8,7 @@ import Modelo.Factura;
 public interface FacturaDao {
 	public void crear_tabla();
 
-	public void insertar(Factura idFactura, Cliente idCliente);
+	public void insertar(int i, int j);
 
 	public List<Factura> listar();
 }

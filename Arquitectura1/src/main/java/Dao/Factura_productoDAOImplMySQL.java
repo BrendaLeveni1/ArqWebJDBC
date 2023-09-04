@@ -1,13 +1,10 @@
 package Dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-
-import Modelo.Factura;
-import Modelo.Factura_producto;
-import Modelo.Producto;
 import util.ConnectionFactory;
 
 public class Factura_productoDAOImplMySQL implements Factura_productoDao {
@@ -31,7 +28,7 @@ public class Factura_productoDAOImplMySQL implements Factura_productoDao {
 	}
 
 	@Override
-	public void insertar(Factura idFactura, Producto idProducto, int cantidad) {
+	public void insertar(int idFactura, int idProducto, int cantidad) {
 		try {
 			// this.connection.getInstance().
 			Statement stmt = this.connection.createStatement();
@@ -47,14 +44,22 @@ public class Factura_productoDAOImplMySQL implements Factura_productoDao {
 	//Retorne el producto que más recaudó
 	//cantidad de productos vendidos multiplicado por su valor
 	@Override
-	public List<Factura_producto> listar() {
+	public void listar() {
 		try {
 			// this.connection.getInstance().
-			Statement stmt = this.connection.createStatement();
-			String sql = "INSERT INTO Factura_producto (idFactura, idProducto, cantidad) VALUES (" + idFactura + ","
-					+ idProducto + "," + cantidad + ");";
-			stmt.executeUpdate(sql);
-			ConnectionFactory.getInstance().disconnect();
+		
+			String sql = "SELECT nombre, MAX(valor * cantidad) AS recaudacion_maxima FROM producto GROUP BY nombre recaudacion_maxima DESC LIMIT 1";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet resultado = ps.executeQuery();
+
+			while (resultado.next()) {
+				String nombreProducto = resultado.getString("nombre");
+				float recaudacionMaxima = resultado.getFloat("recaudacion_maxima");
+				
+				  System.out.println("El producto que más recaudó es: " + nombreProducto);
+	                System.out.println("Recaudación máxima: $" + recaudacionMaxima);
+			}	
+				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

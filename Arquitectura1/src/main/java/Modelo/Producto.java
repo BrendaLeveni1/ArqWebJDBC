@@ -36,8 +36,8 @@ public class Producto {
 		this.valor = valor;
 	}
 
+	@Override
 	public String toString() {
-		return null;// hacer
-
+		return "idProducto=" + idProducto + ", nombre=" + nombre + ", valor=" + valor;
 	}
 }

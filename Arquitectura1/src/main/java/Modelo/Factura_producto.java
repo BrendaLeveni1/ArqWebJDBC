@@ -2,29 +2,29 @@ package Modelo;
 
 public class Factura_producto {
 
-	private Factura idFactura;
-	private Producto idProducto;
+	private int idFactura;
+	private int idProducto;
 	private int cantidad;
 
-	public Factura_producto(Factura idFactura, Producto idProducto, int cantidad) {
+	public Factura_producto(int idFactura, int idProducto, int cantidad) {
 		this.idFactura = idFactura;
 		this.idProducto = idProducto;
 		this.cantidad = cantidad;
 	}
 
-	public Factura getIdFactura() {
+	public int getIdFactura() {
 		return idFactura;
 	}
 
-	public void setIdFactura(Factura idFactura) {
+	public void setIdFactura(int idFactura) {
 		this.idFactura = idFactura;
 	}
 
-	public Producto getIdProducto() {
+	public int getIdProducto() {
 		return idProducto;
 	}
 
-	public void setIdProducto(Producto idProducto) {
+	public void setIdProducto(int idProducto) {
 		this.idProducto = idProducto;
 	}
 

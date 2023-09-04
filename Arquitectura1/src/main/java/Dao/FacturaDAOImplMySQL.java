@@ -30,7 +30,7 @@ public class FacturaDAOImplMySQL implements FacturaDao {
 	}
 
 	@Override
-	public void insertar(Factura idFactura, Cliente idCliente) {
+	public void insertar(int idFactura, int idCliente) {
 		try {
 			// this.connection.getInstance().
 			Statement stmt = this.connection.createStatement();
