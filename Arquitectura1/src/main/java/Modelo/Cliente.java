@@ -36,9 +36,9 @@ public class Cliente {
 		this.email = email;
 	}
 
+	@Override
 	public String toString() {
-		return null;// hacer
-
+		return "Cliente nro: "+ idCliente + " Nombre: " + nombre + " email: " + email + ";";
 	}
 
 }

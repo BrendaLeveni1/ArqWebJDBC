@@ -5,5 +5,5 @@ public interface Factura_productoDao {
 
 	public void insertar(int i, int j, int cantidad);
 
-	public void listar();
+	public void mayorRecaudacion();
 }

@@ -41,13 +41,13 @@ public class Factura_productoDAOImplMySQL implements Factura_productoDao {
 		}
 	}
 
-	//Retorne el producto que más recaudó
-	//cantidad de productos vendidos multiplicado por su valor
+	// Retorne el producto que más recaudó
+	// cantidad de productos vendidos multiplicado por su valor
 	@Override
-	public void listar() {
+	public void mayorRecaudacion() {
 		try {
 			// this.connection.getInstance().
-		
+
 			String sql = "SELECT nombre, MAX(valor * cantidad) AS recaudacion_maxima FROM producto GROUP BY nombre recaudacion_maxima DESC LIMIT 1";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet resultado = ps.executeQuery();
@@ -55,11 +55,11 @@ public class Factura_productoDAOImplMySQL implements Factura_productoDao {
 			while (resultado.next()) {
 				String nombreProducto = resultado.getString("nombre");
 				float recaudacionMaxima = resultado.getFloat("recaudacion_maxima");
-				
-				  System.out.println("El producto que más recaudó es: " + nombreProducto);
-	                System.out.println("Recaudación máxima: $" + recaudacionMaxima);
-			}	
-				
+
+				System.out.println("El producto que más recaudó es: " + nombreProducto);
+				System.out.println("Recaudación máxima: $" + recaudacionMaxima);
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

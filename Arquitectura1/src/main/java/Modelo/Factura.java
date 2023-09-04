@@ -26,9 +26,9 @@ public class Factura {
 		this.idCliente = idCliente;
 	}
 
+	@Override
 	public String toString() {
-		return null;// hacer
-
+		return "Factura nro: "+ idFactura + " Cliente id : " + idCliente + ";";
 	}
 
 }

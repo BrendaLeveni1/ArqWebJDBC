@@ -36,9 +36,9 @@ public class Factura_producto {
 		this.cantidad = cantidad;
 	}
 
+	@Override
 	public String toString() {
-		return null;// hacer
-
+		return "Factura nro: "+ idFactura + " Producto id: " + idProducto + " cantidad: "+ cantidad + ";";
 	}
 
 }
