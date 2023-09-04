@@ -4,11 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import modelo.Cliente;
-import utils.ConnectionFactory;
+import Modelo.Cliente;
+import util.ConnectionFactory;
 
-public class ClienteDAOimpDerby implements ClienteDAO {
+public class ClienteDAOimpDerby implements ClienteDao {
 	private Connection connection;
 
 	public ClienteDAOimpDerby(Connection connection) {
@@ -18,9 +19,10 @@ public class ClienteDAOimpDerby implements ClienteDAO {
 	@Override
 	public void crear_tabla() {
 		try {
-			String sql = "CREATE TABLE Cliente (idCliente INT, nombre VARCHAR(500), email VARCHAR(150), PRIMARY KEY(idCliente))";
-			connection.prepareStatement(sql).execute();
-			connection.commit();
+			// this.connection.getInstance().
+			Statement stmt = this.connection.createStatement();
+			String sql = "CREATE TABLE Cliente ( idCliente INT,nombre VARCHAR(255), email VARCHAR(255))";
+			stmt.executeUpdate(sql);
 			ConnectionFactory.getInstance().disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -28,40 +30,39 @@ public class ClienteDAOimpDerby implements ClienteDAO {
 	}
 
 	@Override
-	public void agregar(Cliente c) {
+	public void insertar(int idCliente, String nombre, String email) {
 		try {
-			String sql = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
-			PreparedStatement ps = connection.prepareStatement(sql);
-			
-			ps.setInt(1, c.getIdCliente());
-			ps.setString(2, c.getNombre());
-			ps.setString(3, c.getEmail());
-			
-			ps.executeUpdate();
-			ps.close();
-			
+			// this.connection.getInstance().
+			Statement stmt = this.connection.createStatement();
+			String sql = "INSERT INTO Cliente (idCliente, nombre,email) VALUES (" + idCliente + "," + nombre + ","
+					+ email + ");";
+			stmt.executeUpdate(sql);
+			ConnectionFactory.getInstance().disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	//lista de clientes, ordenada por a cuál se le facturó más.
 	@Override
-	public void listarClientes() {
-		try {
-			String sql = "SELECT c.idCliente, c.nombre, SUM(fp.cantidad * p.valor) AS total_facturado FROM cliente c JOIN factura f ON c.idCliente = f.idCliente JOIN factura_producto fp ON f.idFactura = fp.idFactura JOIN producto p ON fp.idProducto = p.idProducto GROUP BY c.idCliente, c.nombre ORDER BY total_facturado DESC";
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ResultSet resultSet = ps.executeQuery();
+	public void listar() {
+		try {			
+			String sql = "SELECT c.nombre AS nombre_cliente, SUM(f.total) AS total_facturado FROM clientes c LEFT JOIN facturas f ON c.id = f.cliente_id GROUP BY c.id, c.nombre ORDER BY total_facturado DESC";
+			PreparedStatement stm = connection.prepareStatement(sql);
+			ResultSet resultado = stm.executeQuery();
 
-			while (resultSet.next()) {
-				int idCliente = resultSet.getInt("idCliente");
-				String nombreCliente = resultSet.getString("nombre");
-				float totalFacturado = resultSet.getFloat("total_facturado");
+			while (resultado.next()) {
+				int idCliente = resultado.getInt("idCliente");
+				String nombreCliente = resultado.getString("nombre");
+				float totalFacturado = resultado.getFloat("total_facturado");
 				
 				System.out.println("Cliente [idCliente=" + idCliente + ", nombre=" + nombreCliente + ", total facturado=$" + totalFacturado + "]");
+			
+			
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-	}
+}
 }

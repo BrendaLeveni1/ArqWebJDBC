@@ -10,5 +10,4 @@ public interface FacturaDao {
 
 	public void insertar(int i, int j);
 
-	public List<Factura> listar();
 }

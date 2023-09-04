@@ -42,9 +42,4 @@ public class FacturaDAOImplMySQL implements FacturaDao {
 		}
 	}
 
-	@Override
-	public List<Factura> listar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

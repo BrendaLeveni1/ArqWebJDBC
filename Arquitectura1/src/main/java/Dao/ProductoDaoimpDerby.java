@@ -5,14 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Modelo.Factura;
+import Modelo.Producto;
 import util.ConnectionFactory;
 
-public class FacturaDAOimpDerby implements FacturaDao {
-
+public class ProductoDAOimpDerby implements ProductoDao {
 	private Connection connection;
 
-	public FacturaDAOimpDerby(Connection connection) {
+	public ProductoDAOimpDerby(Connection connection) {
 		this.connection = connection;
 	}
 
@@ -21,7 +20,7 @@ public class FacturaDAOimpDerby implements FacturaDao {
 		try {
 			// this.connection.getInstance().
 			Statement stmt = this.connection.createStatement();
-			String sql = "CREATE TABLE Factura ( idFactura INT, idCliente INT)";
+			String sql = "CREATE TABLE Producto ( idProducto INT, valor DOUBLE, nombre VARCHAR(255))";
 			stmt.executeUpdate(sql);
 			util.ConnectionFactory.getInstance().disconnect();
 		} catch (SQLException e) {
@@ -30,11 +29,12 @@ public class FacturaDAOimpDerby implements FacturaDao {
 	}
 
 	@Override
-	public void insertar(int idFactura, int idCliente) {
+	public void insertar(int idProducto, double valor, String nombre) {
 		try {
 			// this.connection.getInstance().
 			Statement stmt = this.connection.createStatement();
-			String sql = "INSERT INTO Factura (idFactura,idCliente) VALUES (" + idFactura + "," + idCliente + ");";
+			String sql = "INSERT INTO producto (idProducto, valor, nombre) VALUES (" + idProducto + "," + valor + ","
+					+ nombre + ");";
 			stmt.executeUpdate(sql);
 			util.ConnectionFactory.getInstance().disconnect();
 		} catch (SQLException e) {
