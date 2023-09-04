@@ -33,9 +33,9 @@ public class Main {
         //CARGA DE DATOS
         
     
-        //////////CVS Producto
+        //////////CSV Producto
         
-        public static void cargarCVSProductos() {
+        public static void cargarCSVProductos() {
         	CVSParser = null;
         	
         	try {
@@ -54,8 +54,8 @@ public class Main {
         		//?		Dao.DAOFactory.getProductoDao(ConnectionFactory.DERBY).insertar(p);///deberia poner esta linea para la coneccion con Derby?
         	}   
         }
-        //////////CVS Cliente
-        public static void cargarCVSClientes() {//ver
+        //////////CSV Cliente
+        public static void cargarCSVClientes() {//ver
         	CVSParser = null;
         	
         	try {
@@ -76,7 +76,7 @@ public class Main {
         }
         
         //////////CVS Factura_producto
-        public static void cargarCVSFactura_producto() {//ver
+        public static void cargarCSVFactura_producto() {//ver
         	CVSParser = null;
         	
         	try {
@@ -97,7 +97,7 @@ public class Main {
         	}   
         }
         ///CVS Factura
-        public static void cargarCVSFactura() {//ver
+        public static void cargarCSVFactura() {//ver
         	CVSParser = null;
         	
         	try {
